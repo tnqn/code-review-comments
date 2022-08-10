@@ -7,6 +7,8 @@
   - [Naming style should be consistent](#naming-style-should-be-consistent)
   - [Name utility functions generically](#name-utility-functions-generically)
   - [Export names only if you must](#export-names-only-if-you-must)
+  - [The case of an initialism should be consistent](#the-case-of-an-initialism-should-be-consistent)
+  - [Write proper nouns formally](#write-proper-nouns-formally)
 - [Errors](#errors)
   - [Do not capitalize Errors](#do-not-capitalize-errors)
   - [Add context to errors when returning them](#add-context-to-errors-when-returning-them)
@@ -106,6 +108,60 @@ type RouteClient struct {
 }
 
 func GetRoute(destination string) *Route { ... }
+```
+
+## The case of an initialism should be consistent
+
+In code, the case of an initialism should be consistent, i.e. either all
+uppercase or lowercase. For example, "TCP" should be written as "TCP" or "tcp",
+e.g. `ProtocolTCP`, `tcpHeader`.
+
+In comments and documentation, initialisms should be all uppercase, e.g.
+"Protocol could be UDP, TCP, or SCTP".
+
+```go
+// Bad example
+// TcpHeader contains the tcp specific header.
+type TcpHeader struct { ... }
+
+func (p *Packet) SetTcpHeader(Tcp *TcpHeader) { ... }
+
+// Good example
+// TCPHeader contains the TCP specific header.
+type TCPHeader struct { ... }
+
+func (p *Packet) SetTCPHeader(tcp *TCPHeader) { ... }
+```
+
+## Write proper nouns formally
+
+In comments and documentation, use **upper camel case** for K8s resource and CRD
+kind names, e.g. "Pod", "Node", "Service", "NetworkPolicy", "TrafficControl".
+
+For component names, **capitalize the first letters** if a component name
+consists of multiple words, e.g. "Antrea Controller", "Antrea Agent", or use the
+exact binary names, e.g. "antrea-controller", "antrea-agent".
+
+```text
+<!-- Bad example -->
+A service is an abstraction which defines a logical set of pods and a policy by
+which to access them.
+
+trafficControl is a crd API that manages and manipulates the transmission of pod
+traffic.
+
+AntreaController watches networkPolicy, pod, and namespace resources from the
+kubernetes api.
+
+<!-- Good example -->
+A Service is an abstraction which defines a logical set of Pods and a policy by
+which to access them.
+
+TrafficControl is a CRD API that manages and manipulates the transmission of Pod
+traffic.
+
+Antrea Controller watches NetworkPolicy, Pod, and Namespace resources from the
+Kubernetes API.
 ```
 
 # Errors
