@@ -716,6 +716,7 @@ func TestDoSomething(t *testing.T) {
 
 Imports should be organized in groups (the standard library packages, the third
 party packages, the local packages), with blank lines between them.
+[goimports](https://pkg.go.dev/golang.org/x/tools/cmd/goimports) will do this for you.
 
 ```go
 // Bad examples
